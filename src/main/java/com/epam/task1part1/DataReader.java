@@ -1,6 +1,7 @@
 package com.epam.task1part1;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,12 +15,16 @@ public class DataReader {
         try {
             sc = new Scanner(file);
         }
-        catch (Exception e){
-            throw new DataException("The given file path was invalid.");
+        catch (FileNotFoundException e){
+            throw new DataException("The given file path was invalid.", e);
         }
 
-        while (sc.hasNextLine()){
-            lines.add(sc.nextLine());
+        boolean hasNextLine = sc.hasNextLine();
+        while (hasNextLine) {
+            String line = sc.nextLine();
+            lines.add(line);
+
+            hasNextLine = sc.hasNextLine();
         }
 
         return lines;

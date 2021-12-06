@@ -46,14 +46,12 @@ public class CalculatorTest {
         //given
         Calculator calculator = new Calculator();
         Circle circle = new Circle(3.5, 2.5, 53.4);
-        double expectedResult = Math.PI * 12.25;
 
         //when
         double result = calculator.calculateArea(circle);
 
         //then
-        Assert.assertEquals(expectedResult, result, 0.0);
-
+        Assert.assertEquals(38.48, result, 0.01);
     }
 
     @Test
@@ -61,12 +59,11 @@ public class CalculatorTest {
         //given
         Calculator calculator = new Calculator();
         Circle circle = new Circle(3.5, 2.5, 53.4);
-        double expectedResult = Math.PI * 7;
 
         //when
         double result = calculator.calculatePerimeter(circle);
 
         //then
-        Assert.assertEquals(expectedResult, result, 0.0);
+        Assert.assertEquals(21.99, result, 0.01);
     }
 }

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Director {
-    private DataReader reader;
-    private CircleValidator validator;
-    private CircleCreator creator;
+    private final DataReader reader;
+    private final CircleValidator validator;
+    private final CircleCreator creator;
 
     public Director(DataReader reader, CircleValidator validator, CircleCreator creator) {
         this.reader = reader;

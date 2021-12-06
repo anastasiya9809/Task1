@@ -3,22 +3,20 @@ package com.epam.task1part1;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
 
 public class DirectorTest {
+    private final static String PATH = "C:\\Users\\aausi\\Documents\\Task1-Part1\\src\\test\\resources\\input data";
+    private final static String INVALID_PATH = "sdlfksjdflk";
+
     @Test
     public void testReadShouldReadWhenPathValid() throws DataException {
         //given
         DataReader reader = Mockito.mock(DataReader.class);
-        CircleValidator validator = Mockito.mock(CircleValidator.class);
-        CircleCreator creator = Mockito.mock(CircleCreator.class);
-        Director director = new Director(reader, validator, creator);
-        String path = "C:\\Users\\aausi\\Documents\\Task1-Part1\\src\\test\\resources\\input data";
-        List<String> lines = new ArrayList<>(Arrays.asList(
+        List<String> lines = Arrays.asList(
                 "3 5 4",
                 "k 4 3",
                 "3.4 6.5 5.4",
@@ -28,15 +26,10 @@ public class DirectorTest {
                 "0 5 3",
                 "7.9 6 4.3",
                 "0.0 4 5",
-                "3 5 y"));
-        List<Circle> expected = new ArrayList<>(Arrays.asList(
-                new Circle(3, 5, 4),
-                new Circle(3.4, 6.5, 5.4),
-                new Circle(1, 3, 5),
-                new Circle(7.9, 6, 4.3)));
+                "3 5 y");
+        when(reader.read(PATH)).thenReturn(lines);
 
-        //when
-        when(reader.read(path)).thenReturn(lines);
+        CircleValidator validator = Mockito.mock(CircleValidator.class);
         when(validator.isCircle("3 5 4")).thenReturn(true);
         when(validator.isCircle("k 4 3")).thenReturn(false);
         when(validator.isCircle("3.4 6.5 5.4")).thenReturn(true);
@@ -47,11 +40,22 @@ public class DirectorTest {
         when(validator.isCircle("7.9 6 4.3")).thenReturn(true);
         when(validator.isCircle("0.0 4 5")).thenReturn(false);
         when(validator.isCircle("3 5 y")).thenReturn(false);
+
+        CircleCreator creator = Mockito.mock(CircleCreator.class);
         when(creator.create("3 5 4")).thenReturn(new Circle(3,5, 4));
         when(creator.create("3.4 6.5 5.4")).thenReturn(new Circle(3.4, 6.5, 5.4));
         when(creator.create("1 3 5")).thenReturn(new Circle(1,3, 5));
         when(creator.create("7.9 6 4.3")).thenReturn(new Circle(7.9,6, 4.3));
-        List<Circle> result = director.read(path);
+
+        Director director = new Director(reader, validator, creator);
+
+        //when
+        List<Circle> expected = Arrays.asList(
+                new Circle(3, 5, 4),
+                new Circle(3.4, 6.5, 5.4),
+                new Circle(1, 3, 5),
+                new Circle(7.9, 6, 4.3));
+        List<Circle> result = director.read(PATH);
 
         //then
         Assert.assertEquals(expected, result);
@@ -61,15 +65,13 @@ public class DirectorTest {
     public void testReadShouldThrowExceptionWhenPathInvalid() throws DataException {
         //given
         DataReader reader = Mockito.mock(DataReader.class);
+        when(reader.read(INVALID_PATH)).thenThrow(DataException.class);
+
         CircleValidator validator = Mockito.mock(CircleValidator.class);
         CircleCreator creator = Mockito.mock(CircleCreator.class);
         Director director = new Director(reader, validator, creator);
-        String path = "sdlfksjdflk";
 
         //when
-        when(reader.read(path)).thenThrow(DataException.class);
-
-        //then
-        director.read(path);
+        List<Circle> result = director.read(INVALID_PATH);
     }
 }
