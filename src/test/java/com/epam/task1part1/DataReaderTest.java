@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DataReaderTest {
     private static final String PATH = "C:\\Users\\aausi\\Documents\\Task1-Part1\\src\\test\\resources\\input data";
-    private static final String INVALID_PATH = "sdlfksjdflk";
+    private static final String INVALID_PATH = "";
 
     @Test
     public void testReadShouldReadWhenPathValid() throws DataException {
@@ -17,16 +17,12 @@ public class DataReaderTest {
 
         //when
         List<String> expected = Arrays.asList(
-                "3 5 4",
-                "k 4 3",
-                "3.4 6.5 5.4",
-                "2 5k 0",
-                "1 3 5",
-                "-5 4 4",
-                "0 5 3",
-                "7.9 6 4.3",
-                "0.0 4 5",
-                "3 5 y");
+                "3 3 0.20 0.08",
+                "3 5 4 4 5 9 3 9",
+                "3 5 4 4 5 9 3 9 7",
+                "3 5 4 4 5 9 3 9 3 2",
+                "1 2 3",
+                "abcdefgh");
         List<String> result = reader.read(PATH);
 
         //then
