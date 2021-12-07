@@ -35,6 +35,6 @@ public class DataReaderTest {
         DataReader reader = new DataReader();
 
         //when
-        List<String> result = reader.read(INVALID_PATH);
+        reader.read(INVALID_PATH);
     }
 }

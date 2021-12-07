@@ -70,6 +70,6 @@ public class DirectorTest {
         Director director = new Director(reader, validator, creator);
 
         //when
-        List<Quadrilateral> result = director.read(INVALID_PATH);
+        director.read(INVALID_PATH);
     }
 }
