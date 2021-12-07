@@ -82,9 +82,15 @@ public class Quadrilateral {
         }
 
         Quadrilateral other = (Quadrilateral) obj;
-        return this.pointA == other.pointA && this.pointB == other.pointB && this.pointC ==
-                other.pointC && this.pointD == other.pointD && this.angleA == other.angleA
-                && this.angleB == other.angleB && this.angleC == other.angleC
-                && this.angleD == other.angleD;
+
+        if (pointA == null){
+            return this.angleA == other.angleA && this.angleB == other.angleB
+                    && this.angleC == other.angleC
+                    && this.angleD == other.angleD;
+        }
+
+        return this.pointA.equals(other.pointA) && this.pointB.equals(other.pointB) &&
+                this.pointC.equals(other.pointC) && this.pointD.equals(other.pointD)
+                && this.angleA == other.angleA && this.angleC == other.angleC;
     }
 }
