@@ -47,9 +47,8 @@ public class CalculatorTest {
         Point pointB = new Point(-1, 4);
         Point pointC = new Point(5, 6);
         Point pointD = new Point(7, -1);
-        double angleA = 1.180;
-        double angleC = 1.527;
-        Quadrilateral quadrilateral = new Quadrilateral(pointA, pointB, pointC, pointD, angleA, angleC);
+
+        Quadrilateral quadrilateral = new Quadrilateral(pointA, pointB, pointC, pointD);
 
         //when
         double expected = 40;
@@ -66,9 +65,7 @@ public class CalculatorTest {
         Point pointB = new Point(-1, 4);
         Point pointC = new Point(5, 6);
         Point pointD = new Point(7, -1);
-        double angleA = 3.871;
-        double angleC = 1.527;
-        Quadrilateral quadrilateral = new Quadrilateral(pointA, pointB, pointC, pointD, angleA, angleC);
+        Quadrilateral quadrilateral = new Quadrilateral(pointA, pointB, pointC, pointD);
 
         //when
         double expected = 14.5;
@@ -171,11 +168,11 @@ public class CalculatorTest {
     @Test
     public void testIsConvexShouldReturnTrueWhenQuadrilateralConvex() {
         //given
-        double angleA = Math.PI / 2;
-        double angleB = Math.PI / 2;
-        double angleC = 5 * Math.PI / 6;
-        double angleD = Math.PI / 6;
-        Quadrilateral quadrilateral = new Quadrilateral(angleA, angleB, angleC, angleD);
+        Point pointA = new Point(5, 6);
+        Point pointB = new Point(7, -1);
+        Point pointC = new Point(-3, 1);
+        Point pointD = new Point(-1, 4);
+        Quadrilateral quadrilateral = new Quadrilateral(pointA, pointB, pointC, pointD);
 
         //when
         boolean result = calculator.isConvex(quadrilateral);
@@ -187,12 +184,12 @@ public class CalculatorTest {
     @Test
     public void testIsConvexShouldReturnFalseWhenQuadrilateralConcave() {
         //given
-        double angleA = Math.PI / 6;
-        double angleB = Math.PI / 6;
-        double angleC = 3 * Math.PI / 2;
-        double angleD = Math.PI / 6;
+        Point pointA = new Point(5, 6);
+        Point pointB = new Point(7, -1);
+        Point pointC = new Point(4, 3);
+        Point pointD = new Point(-1, 4);
 
-        Quadrilateral quadrilateral = new Quadrilateral(angleA, angleB, angleC, angleD);
+        Quadrilateral quadrilateral = new Quadrilateral(pointA, pointB, pointC, pointD);
 
         //when
         boolean result = calculator.isConvex(quadrilateral);
@@ -202,11 +199,23 @@ public class CalculatorTest {
     }
 
     @Test
-    public void testIsSquareShouldReturnTrueWhenQuadrilateralIsSquare() {
+    public void testIsSquareShouldReturnTrueWhenQuadrilateralIsSquareRotated() {
         //given
-        double angleA = Math.PI / 2;
         Quadrilateral quadrilateral = new Quadrilateral(new Point(0, 0), new Point(2, 2),
-                new Point(4, 0), new Point(2, -2), angleA);
+                new Point(4, 0), new Point(2, -2));
+
+        //when
+        boolean result = calculator.isSquare(quadrilateral);
+
+        //then
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void testIsSquareShouldReturnTrueWhenQuadrilateralIsSquareNotRotated() {
+        //given
+        Quadrilateral quadrilateral = new Quadrilateral(new Point(0, 4), new Point(4, 4),
+                new Point(4, 0), new Point(0, 0));
 
         //when
         boolean result = calculator.isSquare(quadrilateral);
@@ -218,9 +227,8 @@ public class CalculatorTest {
     @Test
     public void testIsSquareShouldReturnFalseWhenQuadrilateralIsNotSquare() {
         //given
-        double angleA = Math.PI / 2;
         Quadrilateral quadrilateral = new Quadrilateral(new Point(0, 0), new Point(2, 2),
-                new Point(5, 0), new Point(2, -2), angleA);
+                new Point(5, 0), new Point(2, -2));
 
         //when
         boolean result = calculator.isSquare(quadrilateral);

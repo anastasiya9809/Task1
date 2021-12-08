@@ -1,26 +1,38 @@
 package com.epam.task1part1;
 
 public class Calculator {
+    private static final double SQUARE_ROOT_TWO = Math.sqrt(2);
+
     public double calculatePerimeter(Quadrilateral quadrilateral) {
-        double distanceAB = calculateDistance(quadrilateral, Segment.AB);
-        double distanceBC = calculateDistance(quadrilateral, Segment.BC);
-        double distanceCD = calculateDistance(quadrilateral, Segment.CD);
-        double distanceAD = calculateDistance(quadrilateral, Segment.AD);
+        Point pointA = quadrilateral.getPointA();
+        Point pointB = quadrilateral.getPointB();
+        Point pointC = quadrilateral.getPointC();
+        Point pointD = quadrilateral.getPointD();
+
+        double distanceAB = calculateDistance(pointA, pointB);
+        double distanceBC = calculateDistance(pointB, pointC);
+        double distanceCD = calculateDistance(pointC, pointD);
+        double distanceAD = calculateDistance(pointA, pointD);
 
         return distanceAB + distanceBC + distanceCD + distanceAD;
     }
 
     public double calculateArea(Quadrilateral quadrilateral) {
-        double distanceAB = calculateDistance(quadrilateral, Segment.AB);
-        double distanceBC = calculateDistance(quadrilateral, Segment.BC);
-        double distanceCD = calculateDistance(quadrilateral, Segment.CD);
-        double distanceAD = calculateDistance(quadrilateral, Segment.AD);
+        Point pointA = quadrilateral.getPointA();
+        Point pointB = quadrilateral.getPointB();
+        Point pointC = quadrilateral.getPointC();
+        Point pointD = quadrilateral.getPointD();
 
-        double angleA = quadrilateral.getAngleA();
-        double angleC = quadrilateral.getAngleC();
+        double area = 0;
+        Point[] points = { pointA, pointB, pointC, pointD };
+        int length = points.length;
+        for (int i = 0; i < points.length; i++){
+            int j = (i + 1) % length;
+            area = area + points[i].getX() * points[j].getY();
+            area = area - points[i].getY() * points[j].getX();
+        }
 
-        return 0.5 * distanceAB * distanceAD * Math.sin(angleA) +
-                0.5 * distanceBC * distanceCD * Math.sin(angleC);
+        return -area / 2;
     }
 
     public boolean isQuadrilateral(Point pointA, Point pointB, Point pointC, Point pointD){
@@ -40,31 +52,70 @@ public class Calculator {
     }
 
     public boolean isConvex(Quadrilateral quadrilateral){
-        double angleA = quadrilateral.getAngleA();
-        double angleB = quadrilateral.getAngleB();
-        double angleC = quadrilateral.getAngleC();
-        double angleD = quadrilateral.getAngleD();
+        Point pointA = quadrilateral.getPointA();
+        Point pointB = quadrilateral.getPointB();
+        Point pointC = quadrilateral.getPointC();
+        Point pointD = quadrilateral.getPointD();
 
-        return angleA < Math.PI && angleB < Math.PI &&
-                angleC < Math.PI && angleD < Math.PI;
+        Point[] points = { pointD, pointA, pointB, pointC, pointD, pointA };
+
+        boolean foundOnePositive = false;
+        boolean foundOneNegative = false;
+
+        for (int i = 1; i < points.length - 1; i++){
+            double crossProduct = calculateCrossProduct(points[i], points[i - 1], points[i + 1]);
+            if (i == 1){
+                if (crossProduct > 0){
+                    foundOnePositive = true;
+                }
+                if (crossProduct < 0){
+                    foundOneNegative = true;
+                }
+            }
+            else {
+                if (foundOnePositive && crossProduct < 0){
+                    return false;
+                }
+                if (foundOneNegative && crossProduct > 0){
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     public boolean isSquare(Quadrilateral quadrilateral){
-        double distanceAB = calculateDistance(quadrilateral, Segment.AB);
-        double distanceBC = calculateDistance(quadrilateral, Segment.BC);
-        double distanceCD = calculateDistance(quadrilateral, Segment.CD);
-        double distanceAD = calculateDistance(quadrilateral, Segment.AD);
+        Point pointA = quadrilateral.getPointA();
+        Point pointB = quadrilateral.getPointB();
+        Point pointC = quadrilateral.getPointC();
+        Point pointD = quadrilateral.getPointD();
 
-        double angleA = quadrilateral.getAngleA();
+        double distanceAB = calculateDistance(pointA, pointB);
+        double distanceBC = calculateDistance(pointB, pointC);
+        double distanceCD = calculateDistance(pointC, pointD);
+        double distanceAD = calculateDistance(pointA, pointD);
 
-        return angleA == Math.PI / 2 && distanceAB == distanceBC && distanceBC == distanceCD && distanceCD == distanceAD;
+        double distanceAC = calculateDistance(pointA, pointC);
+        double roundedDistanceAC = Math.round(distanceAC * 100.0) / 100.0;
+
+        double diagonalLengthInSquare = distanceAB * SQUARE_ROOT_TWO;
+        double roundedDiagonalLengthInSquare = Math.round(diagonalLengthInSquare * 100.0) / 100.0;
+
+        return distanceAB == distanceBC && distanceBC == distanceCD && distanceCD == distanceAD &&
+                roundedDistanceAC == roundedDiagonalLengthInSquare;
     }
 
     public boolean isRhombus(Quadrilateral quadrilateral){
-        double distanceAB = calculateDistance(quadrilateral, Segment.AB);
-        double distanceBC = calculateDistance(quadrilateral, Segment.BC);
-        double distanceCD = calculateDistance(quadrilateral, Segment.CD);
-        double distanceAD = calculateDistance(quadrilateral, Segment.AD);
+        Point pointA = quadrilateral.getPointA();
+        Point pointB = quadrilateral.getPointB();
+        Point pointC = quadrilateral.getPointC();
+        Point pointD = quadrilateral.getPointD();
+
+        double distanceAB = calculateDistance(pointA, pointB);
+        double distanceBC = calculateDistance(pointB, pointC);
+        double distanceCD = calculateDistance(pointC, pointD);
+        double distanceAD = calculateDistance(pointA, pointD);
 
         return distanceAB == distanceBC && distanceBC == distanceCD && distanceCD == distanceAD;
     }
@@ -83,39 +134,7 @@ public class Calculator {
         return slopeAB == slopeCD || slopeBC == slopeAD;
     }
 
-    public double calculateDistance(Quadrilateral quadrilateral, Segment segment){
-        Point firstPoint;
-        Point secondPoint;
-
-        switch (segment){
-            case AB:
-                firstPoint = quadrilateral.getPointA();
-                secondPoint = quadrilateral.getPointB();
-                break;
-            case BC:
-                firstPoint = quadrilateral.getPointB();
-                secondPoint = quadrilateral.getPointC();
-                break;
-            case CD:
-                firstPoint = quadrilateral.getPointC();
-                secondPoint = quadrilateral.getPointD();
-                break;
-            case AD:
-                firstPoint = quadrilateral.getPointA();
-                secondPoint = quadrilateral.getPointD();
-                break;
-            case BD:
-                firstPoint = quadrilateral.getPointB();
-                secondPoint = quadrilateral.getPointD();
-                break;
-            case AC:
-                firstPoint = quadrilateral.getPointA();
-                secondPoint = quadrilateral.getPointC();
-                break;
-            default:
-                throw new IllegalArgumentException("segment argument invalid");
-        }
-
+    public double calculateDistance(Point firstPoint, Point secondPoint){
         double xFirstPoint = firstPoint.getX();
         double yFirstPoint = firstPoint.getY();
 
@@ -140,5 +159,15 @@ public class Calculator {
         }
 
         return (ySecondPoint - yFirstPoint) / (xSecondPoint - xFirstPoint);
+    }
+
+
+    public double calculateCrossProduct(Point A, Point B, Point C){
+        double xAB = A.getX() - B.getX();
+        double yAB = A.getY() - B.getY();
+        double xBC = C.getX() - B.getX();
+        double yBC = C.getY() - B.getY();
+
+        return xAB * yBC - yAB * xBC;
     }
 }
