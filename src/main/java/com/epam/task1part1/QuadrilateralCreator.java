@@ -5,16 +5,6 @@ public class QuadrilateralCreator {
 
     public Quadrilateral create(String line) {
         String[] values = line.split(SEPARATOR);
-        int length = values.length;
-
-        if (length == 4) {
-            double angleA = Double.parseDouble(values[0]);
-            double angleB = Double.parseDouble(values[1]);
-            double angleC = Double.parseDouble(values[2]);
-            double angleD = Double.parseDouble(values[3]);
-
-            return new Quadrilateral(angleA, angleB, angleC, angleD);
-        }
 
         double xPointA = Double.parseDouble(values[0]);
         double yPointA = Double.parseDouble(values[1]);
@@ -30,17 +20,6 @@ public class QuadrilateralCreator {
         Point pointC = new Point(xPointC, yPointC);
         Point pointD = new Point(xPointD, yPointD);
 
-        if (length == 8) {
-            return new Quadrilateral(pointA, pointB, pointC, pointD);
-        }
-        else {
-            double angleA = Double.parseDouble(values[8]);
-            if (length == 9) {
-                return new Quadrilateral(pointA, pointB, pointC, pointD, angleA);
-            }
-
-            double angleB = Double.parseDouble(values[9]);
-            return new Quadrilateral(pointA, pointB, pointC, pointD, angleA, angleB);
-        }
+        return new Quadrilateral(pointA, pointB, pointC, pointD);
     }
 }

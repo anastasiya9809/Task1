@@ -17,42 +17,32 @@ public class DirectorTest {
         //given
         DataReader reader = Mockito.mock(DataReader.class);
         List<String> lines = Arrays.asList(
-                "3 3 0.20 0.08",
                 "3 5 4 4 5 9 3 9",
-                "3 5 4 4 5 9 3 9 7",
-                "3 5 4 4 5 9 3 9 3 2",
+                "3 6 9 7 4 9 2 0",
                 "1 2 3",
                 "abcdefgh");
         when(reader.read(PATH)).thenReturn(lines);
 
         QuadrilateralValidator validator = Mockito.mock(QuadrilateralValidator.class);
-        when(validator.isQuadrilateral("3 3 0.20 0.08")).thenReturn(true);
         when(validator.isQuadrilateral("3 5 4 4 5 9 3 9")).thenReturn(true);
-        when(validator.isQuadrilateral("3 5 4 4 5 9 3 9 7")).thenReturn(true);
-        when(validator.isQuadrilateral("3 5 4 4 5 9 3 9 3 2")).thenReturn(true);
+        when(validator.isQuadrilateral("3 6 9 7 4 9 2 0")).thenReturn(true);
         when(validator.isQuadrilateral("1 2 3")).thenReturn(false);
         when(validator.isQuadrilateral("abcdefgh")).thenReturn(false);
 
         QuadrilateralCreator creator = Mockito.mock(QuadrilateralCreator.class);
-        when(creator.create("3 3 0.20 0.08")).thenReturn(new Quadrilateral(3, 3, 0.20, 0.08));
-        when(creator.create("3 5 4 4 5 9 3 9")).thenReturn(new Quadrilateral(new Point(3, 5), new Point(4, 4), new Point(5, 9),
-                new Point(3, 9)));
-        when(creator.create("3 5 4 4 5 9 3 9 7")).thenReturn(new Quadrilateral(new Point(3, 5), new Point(4, 4), new Point(5, 9),
-                new Point(3, 9), 7));
-        when(creator.create("3 5 4 4 5 9 3 9 3 2")).thenReturn(new Quadrilateral(new Point(3, 5), new Point(4, 4), new Point(5, 9),
-                new Point(3, 9), 3, 2));
+        when(creator.create("3 5 4 4 5 9 3 9")).thenReturn(new Quadrilateral(new Point(3, 5),
+                new Point(4, 4), new Point(5, 9), new Point(3, 9)));
+        when(creator.create("3 6 9 7 4 9 2 0")).thenReturn(new Quadrilateral(new Point(3, 6),
+                new Point(9, 7), new Point(4, 9), new Point(2, 0)));
 
         Director director = new Director(reader, validator, creator);
 
         //when
         List<Quadrilateral> expected = Arrays.asList(
-                new Quadrilateral(3, 3, 0.20, 0.08),
                 new Quadrilateral(new Point(3, 5), new Point(4, 4), new Point(5, 9),
-                new Point(3, 9)),
-                new Quadrilateral(new Point(3, 5), new Point(4, 4), new Point(5, 9),
-                new Point(3, 9), 7),
-                new Quadrilateral(new Point(3, 5), new Point(4, 4), new Point(5, 9),
-                new Point(3, 9), 3, 2));
+                        new Point(3, 9)),
+                new Quadrilateral(new Point(3, 6), new Point(9, 7),
+                        new Point(4, 9), new Point(2, 0)));
         List<Quadrilateral> result = director.read(PATH);
 
         //then

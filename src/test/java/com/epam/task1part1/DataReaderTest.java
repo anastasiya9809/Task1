@@ -17,10 +17,8 @@ public class DataReaderTest {
 
         //when
         List<String> expected = Arrays.asList(
-                "3 3 0.20 0.08",
                 "3 5 4 4 5 9 3 9",
-                "3 5 4 4 5 9 3 9 7",
-                "3 5 4 4 5 9 3 9 3 2",
+                "3 6 9 7 4 9 2 0",
                 "1 2 3",
                 "abcdefgh");
         List<String> result = reader.read(PATH);

@@ -1,10 +1,10 @@
 package com.epam.task1part1;
 
 public class Quadrilateral {
-    private Point pointA;
-    private Point pointB;
-    private Point pointC;
-    private Point pointD;
+    private final Point pointA;
+    private final Point pointB;
+    private final Point pointC;
+    private final Point pointD;
 
     public Quadrilateral(Point pointA, Point pointB, Point pointC, Point pointD) {
         this.pointA = pointA;

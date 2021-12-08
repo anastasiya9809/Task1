@@ -155,7 +155,7 @@ public class Calculator {
         double ySecondPoint = secondPoint.getY();
 
         if (xFirstPoint == xSecondPoint){
-            return 0;
+            return Double.POSITIVE_INFINITY;
         }
 
         return (ySecondPoint - yFirstPoint) / (xSecondPoint - xFirstPoint);
