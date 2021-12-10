@@ -3,6 +3,19 @@ package com.epam.task1part1;
 public class Calculator {
     private static final double SQUARE_ROOT_TWO = Math.sqrt(2);
 
+    public double calculateDistance(Point firstPoint, Point secondPoint){
+        double xFirstPoint = firstPoint.getX();
+        double yFirstPoint = firstPoint.getY();
+
+        double xSecondPoint = secondPoint.getX();
+        double ySecondPoint = secondPoint.getY();
+
+        double distanceSquared = Math.pow(xSecondPoint - xFirstPoint, 2) +
+                Math.pow(ySecondPoint - yFirstPoint, 2);
+
+        return Math.sqrt(distanceSquared);
+    }
+
     public double calculatePerimeter(Quadrilateral quadrilateral) {
         Point pointA = quadrilateral.getPointA();
         Point pointB = quadrilateral.getPointB();
@@ -35,6 +48,20 @@ public class Calculator {
         return -area / 2;
     }
 
+    public double calculateSlope(Point firstPoint, Point secondPoint) {
+        double xFirstPoint = firstPoint.getX();
+        double yFirstPoint = firstPoint.getY();
+
+        double xSecondPoint = secondPoint.getX();
+        double ySecondPoint = secondPoint.getY();
+
+        if (xFirstPoint == xSecondPoint){
+            return Double.POSITIVE_INFINITY;
+        }
+
+        return (ySecondPoint - yFirstPoint) / (xSecondPoint - xFirstPoint);
+    }
+
     public boolean isQuadrilateral(Point pointA, Point pointB, Point pointC, Point pointD){
         double slopeAB = calculateSlope(pointA, pointB);
         double slopeBC = calculateSlope(pointB, pointC);
@@ -49,6 +76,15 @@ public class Calculator {
 
         return !(areABCOnSameLine || areABDOnSameLine || areACDOnSameLine ||
                 areBCDOnSameLine);
+    }
+
+    public double calculateCrossProduct(Point A, Point B, Point C){
+        double xAB = A.getX() - B.getX();
+        double yAB = A.getY() - B.getY();
+        double xBC = C.getX() - B.getX();
+        double yBC = C.getY() - B.getY();
+
+        return xAB * yBC - yAB * xBC;
     }
 
     public boolean isConvex(Quadrilateral quadrilateral){
@@ -132,42 +168,5 @@ public class Calculator {
         double slopeAD = calculateSlope(pointA, pointD);
 
         return slopeAB == slopeCD || slopeBC == slopeAD;
-    }
-
-    public double calculateDistance(Point firstPoint, Point secondPoint){
-        double xFirstPoint = firstPoint.getX();
-        double yFirstPoint = firstPoint.getY();
-
-        double xSecondPoint = secondPoint.getX();
-        double ySecondPoint = secondPoint.getY();
-
-        double distanceSquared = Math.pow(xSecondPoint - xFirstPoint, 2) +
-                Math.pow(ySecondPoint - yFirstPoint, 2);
-
-        return Math.sqrt(distanceSquared);
-    }
-
-    public double calculateSlope(Point firstPoint, Point secondPoint) {
-        double xFirstPoint = firstPoint.getX();
-        double yFirstPoint = firstPoint.getY();
-
-        double xSecondPoint = secondPoint.getX();
-        double ySecondPoint = secondPoint.getY();
-
-        if (xFirstPoint == xSecondPoint){
-            return Double.POSITIVE_INFINITY;
-        }
-
-        return (ySecondPoint - yFirstPoint) / (xSecondPoint - xFirstPoint);
-    }
-
-
-    public double calculateCrossProduct(Point A, Point B, Point C){
-        double xAB = A.getX() - B.getX();
-        double yAB = A.getY() - B.getY();
-        double xBC = C.getX() - B.getX();
-        double yBC = C.getY() - B.getY();
-
-        return xAB * yBC - yAB * xBC;
     }
 }
