@@ -9,57 +9,51 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 public class DirectorTest {
-    private final static String PATH = "C:\\Users\\aausi\\Documents\\Task1-Part1\\src\\test\\resources\\input data";
-    private final static String INVALID_PATH = "";
+    private final static String PATH_TO_VALID_LINE = "C:\\Users\\aausi\\Documents\\Task1-Part1\\src\\test\\resources\\input data 2";
+    private final static String PATH_TO_INVALID_LINE = "C:\\Users\\aausi\\Documents\\Task1-Part1\\src\\test\\resources\\input data 3";
+    private final static String VALID_LINE = "3 5 4 4 5 9 3 9";
+    private final static String INVALID_LINE = "abcdefgh";
+    private final static Quadrilateral QUADRILATERAL = Mockito.mock(Quadrilateral.class);
 
     @Test
-    public void testReadShouldReadWhenPathValid() throws DataException {
+    public void testReadShouldCreateWhenValid() throws DataException {
         //given
         DataReader reader = Mockito.mock(DataReader.class);
-        List<String> lines = Arrays.asList(
-                "3 5 4 4 5 9 3 9",
-                "3 6 9 7 4 9 2 0",
-                "1 2 3",
-                "abcdefgh");
-        when(reader.read(PATH)).thenReturn(lines);
+        when(reader.read(PATH_TO_VALID_LINE)).thenReturn(Arrays.asList(VALID_LINE));
 
         QuadrilateralValidator validator = Mockito.mock(QuadrilateralValidator.class);
-        when(validator.isQuadrilateral("3 5 4 4 5 9 3 9")).thenReturn(true);
-        when(validator.isQuadrilateral("3 6 9 7 4 9 2 0")).thenReturn(true);
-        when(validator.isQuadrilateral("1 2 3")).thenReturn(false);
-        when(validator.isQuadrilateral("abcdefgh")).thenReturn(false);
+        when(validator.isQuadrilateral(VALID_LINE)).thenReturn(true);
 
         QuadrilateralCreator creator = Mockito.mock(QuadrilateralCreator.class);
-        when(creator.create("3 5 4 4 5 9 3 9")).thenReturn(new Quadrilateral(new Point(3, 5),
-                new Point(4, 4), new Point(5, 9), new Point(3, 9)));
-        when(creator.create("3 6 9 7 4 9 2 0")).thenReturn(new Quadrilateral(new Point(3, 6),
-                new Point(9, 7), new Point(4, 9), new Point(2, 0)));
+        when(creator.create(VALID_LINE)).thenReturn(QUADRILATERAL);
 
         Director director = new Director(reader, validator, creator);
 
         //when
-        List<Quadrilateral> expected = Arrays.asList(
-                new Quadrilateral(new Point(3, 5), new Point(4, 4), new Point(5, 9),
-                        new Point(3, 9)),
-                new Quadrilateral(new Point(3, 6), new Point(9, 7),
-                        new Point(4, 9), new Point(2, 0)));
-        List<Quadrilateral> result = director.read(PATH);
+        List<Quadrilateral> expected = Arrays.asList(QUADRILATERAL);
+        List<Quadrilateral> result = director.read(PATH_TO_VALID_LINE);
 
         //then
         Assert.assertEquals(expected, result);
     }
 
-    @Test(expected = DataException.class)
-    public void testReadShouldThrowExceptionWhenPathInvalid() throws DataException {
+    @Test
+    public void testReadShouldNotCreateWhenInvalid() throws DataException {
         //given
         DataReader reader = Mockito.mock(DataReader.class);
-        when(reader.read(INVALID_PATH)).thenThrow(DataException.class);
+        when(reader.read(PATH_TO_INVALID_LINE)).thenReturn(Arrays.asList(INVALID_LINE));
 
         QuadrilateralValidator validator = Mockito.mock(QuadrilateralValidator.class);
+        when(validator.isQuadrilateral(INVALID_LINE)).thenReturn(false);
+
         QuadrilateralCreator creator = Mockito.mock(QuadrilateralCreator.class);
+
         Director director = new Director(reader, validator, creator);
 
         //when
-        director.read(INVALID_PATH);
+        List<Quadrilateral> result = director.read(PATH_TO_INVALID_LINE);
+
+        //then
+        Assert.assertTrue(result.isEmpty());
     }
 }
