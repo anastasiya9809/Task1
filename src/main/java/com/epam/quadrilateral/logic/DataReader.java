@@ -1,6 +1,7 @@
 package com.epam.quadrilateral.logic;
 
 import com.epam.quadrilateral.exception.DataException;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DataReader {
+    private static final Logger LOGGER = Logger.getLogger(Director.class);
+
     public List<String> read(String path) throws DataException {
         List<String> lines = new ArrayList<>();
         File file = new File(path);
@@ -18,6 +21,7 @@ public class DataReader {
             sc = new Scanner(file);
         }
         catch (IOException e){
+            LOGGER.error("problems accessing the file", e);
             throw new DataException(e.getMessage(), e);
         }
 
