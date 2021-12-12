@@ -15,15 +15,12 @@ public class QuadrilateralStore implements Observer {
 
     private QuadrilateralStore(){}
 
-    public Map<Integer, Parameters> getParameters() {
-        return parameters;
-    }
-
     public void update(QuadrilateralObservable quadrilateral) {
         double perimeter = calculator.calculatePerimeter(quadrilateral);
         double area = calculator.calculateArea(quadrilateral);
 
-        parameters.put(quadrilateral.getId(), new Parameters(perimeter, area));
+        Integer id = quadrilateral.getId();
+        parameters.put(id, new Parameters(perimeter, area));
     }
 
     public static QuadrilateralStore getInstance(){

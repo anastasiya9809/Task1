@@ -3,6 +3,7 @@ package com.epam.quadrilateral.logic;
 import com.epam.quadrilateral.exception.DataException;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class DataReader {
         try {
             sc = new Scanner(file);
         }
-        catch (Exception e){
+        catch (IOException e){
             throw new DataException(e.getMessage(), e);
         }
 
