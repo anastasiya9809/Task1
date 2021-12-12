@@ -1,4 +1,4 @@
-package com.epam.task1part1;
+package com.epam.quadrilateral;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

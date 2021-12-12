@@ -1,4 +1,4 @@
-package com.epam.task1part1;
+package com.epam.quadrilateral;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +12,10 @@ public class QuadrilateralStore implements Observer {
     private final Calculator calculator = new Calculator();
 
     private QuadrilateralStore(){}
+
+    public Map<Integer, Parameters> getParameters() {
+        return parameters;
+    }
 
     public void update(QuadrilateralObservable quadrilateral) {
         double perimeter = calculator.calculatePerimeter(quadrilateral);

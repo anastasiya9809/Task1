@@ -1,4 +1,4 @@
-package com.epam.task1part1;
+package com.epam.quadrilateral;
 
 import org.junit.Assert;
 import org.junit.Test;

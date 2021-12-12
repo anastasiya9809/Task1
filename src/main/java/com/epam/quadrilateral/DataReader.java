@@ -1,7 +1,6 @@
-package com.epam.task1part1;
+package com.epam.quadrilateral;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,8 +14,8 @@ public class DataReader {
         try {
             sc = new Scanner(file);
         }
-        catch (FileNotFoundException e){
-            throw new DataException("The given file path was invalid.", e);
+        catch (Exception e){
+            throw new DataException(e.getMessage(), e);
         }
 
         boolean hasNextLine = sc.hasNextLine();

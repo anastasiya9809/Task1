@@ -1,4 +1,4 @@
-package com.epam.task1part1;
+package com.epam.quadrilateral;
 
 public class QuadrilateralCreator {
     private final static String SEPARATOR = " ";

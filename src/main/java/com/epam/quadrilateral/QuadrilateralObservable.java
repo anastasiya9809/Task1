@@ -1,4 +1,4 @@
-package com.epam.task1part1;
+package com.epam.quadrilateral;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,10 @@ public class QuadrilateralObservable extends Quadrilateral implements Observable
 
     public Integer getId() {
         return id;
+    }
+
+    public List<Observer> getObservers() {
+        return observers;
     }
 
     @Override

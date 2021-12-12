@@ -1,10 +1,10 @@
-package com.epam.task1part1;
+package com.epam.quadrilateral;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 public class CalculatorTest {
-    private static final Calculator calculator = new Calculator();
+    private static final Calculator CALCULATOR = new Calculator();
 
     @Test
     public void testCalculatePerimeterShouldCalculatePerimeterWhenQuadrilateralConvex() {
@@ -17,7 +17,7 @@ public class CalculatorTest {
 
         //when
         double expected = 27.408;
-        double result = calculator.calculatePerimeter(quadrilateral);
+        double result = CALCULATOR.calculatePerimeter(quadrilateral);
 
         //then
         Assert.assertEquals(expected, result, 0.001);
@@ -34,7 +34,7 @@ public class CalculatorTest {
 
         //when
         double expected = 23.704;
-        double result = calculator.calculatePerimeter(quadrilateral);
+        double result = CALCULATOR.calculatePerimeter(quadrilateral);
 
         //then
         Assert.assertEquals(expected, result, 0.001);
@@ -52,7 +52,7 @@ public class CalculatorTest {
 
         //when
         double expected = 40;
-        double result = calculator.calculateArea(quadrilateral);
+        double result = CALCULATOR.calculateArea(quadrilateral);
 
         //then
         Assert.assertEquals(expected, result, 0.01);
@@ -69,7 +69,7 @@ public class CalculatorTest {
 
         //when
         double expected = 14.5;
-        double result = calculator.calculateArea(quadrilateral);
+        double result = CALCULATOR.calculateArea(quadrilateral);
 
         //then
         Assert.assertEquals(expected, result, 0.01);
@@ -84,7 +84,7 @@ public class CalculatorTest {
         Point pointD = new Point(-1, 4);
 
         //when
-        boolean result = calculator.isQuadrilateral(pointA, pointB, pointC, pointD);
+        boolean result = CALCULATOR.isQuadrilateral(pointA, pointB, pointC, pointD);
 
         //then
         Assert.assertTrue(result);
@@ -99,7 +99,7 @@ public class CalculatorTest {
         Point pointD = new Point(-1, 4);
 
         //when
-        boolean result = calculator.isQuadrilateral(pointA, pointB, pointC, pointD);
+        boolean result = CALCULATOR.isQuadrilateral(pointA, pointB, pointC, pointD);
 
         //then
         Assert.assertTrue(result);
@@ -114,7 +114,7 @@ public class CalculatorTest {
         Point pointD = new Point(-1, 4);
 
         //when
-        boolean result = calculator.isQuadrilateral(pointA, pointB, pointC, pointD);
+        boolean result = CALCULATOR.isQuadrilateral(pointA, pointB, pointC, pointD);
 
         //then
         Assert.assertFalse(result);
@@ -129,7 +129,7 @@ public class CalculatorTest {
         Point pointD = new Point(2, 4);
 
         //when
-        boolean result = calculator.isQuadrilateral(pointA, pointB, pointC, pointD);
+        boolean result = CALCULATOR.isQuadrilateral(pointA, pointB, pointC, pointD);
 
         //then
         Assert.assertFalse(result);
@@ -144,7 +144,7 @@ public class CalculatorTest {
         Point pointD = new Point(1, 1);
 
         //when
-        boolean result = calculator.isQuadrilateral(pointA, pointB, pointC, pointD);
+        boolean result = CALCULATOR.isQuadrilateral(pointA, pointB, pointC, pointD);
 
         //then
         Assert.assertFalse(result);
@@ -159,7 +159,7 @@ public class CalculatorTest {
         Point pointD = new Point(-2, 2);
 
         //when
-        boolean result = calculator.isQuadrilateral(pointA, pointB, pointC, pointD);
+        boolean result = CALCULATOR.isQuadrilateral(pointA, pointB, pointC, pointD);
 
         //then
         Assert.assertFalse(result);
@@ -175,7 +175,7 @@ public class CalculatorTest {
         Quadrilateral quadrilateral = new Quadrilateral(pointA, pointB, pointC, pointD);
 
         //when
-        boolean result = calculator.isConvex(quadrilateral);
+        boolean result = CALCULATOR.isConvex(quadrilateral);
 
         //then
         Assert.assertTrue(result);
@@ -192,7 +192,7 @@ public class CalculatorTest {
         Quadrilateral quadrilateral = new Quadrilateral(pointA, pointB, pointC, pointD);
 
         //when
-        boolean result = calculator.isConvex(quadrilateral);
+        boolean result = CALCULATOR.isConvex(quadrilateral);
 
         //then
         Assert.assertFalse(result);
@@ -205,7 +205,7 @@ public class CalculatorTest {
                 new Point(4, 0), new Point(2, -2));
 
         //when
-        boolean result = calculator.isSquare(quadrilateral);
+        boolean result = CALCULATOR.isSquare(quadrilateral);
 
         //then
         Assert.assertTrue(result);
@@ -218,7 +218,7 @@ public class CalculatorTest {
                 new Point(4, 0), new Point(0, 0));
 
         //when
-        boolean result = calculator.isSquare(quadrilateral);
+        boolean result = CALCULATOR.isSquare(quadrilateral);
 
         //then
         Assert.assertTrue(result);
@@ -231,7 +231,7 @@ public class CalculatorTest {
                 new Point(5, 0), new Point(2, -2));
 
         //when
-        boolean result = calculator.isSquare(quadrilateral);
+        boolean result = CALCULATOR.isSquare(quadrilateral);
 
         //then
         Assert.assertFalse(result);
@@ -244,7 +244,7 @@ public class CalculatorTest {
                 new Point(4, 0), new Point(2, -1));
 
         //when
-        boolean result = calculator.isRhombus(quadrilateral);
+        boolean result = CALCULATOR.isRhombus(quadrilateral);
 
         //then
         Assert.assertTrue(result);
@@ -257,7 +257,7 @@ public class CalculatorTest {
                 new Point(4, 0), new Point(2, -2));
 
         //when
-        boolean result = calculator.isRhombus(quadrilateral);
+        boolean result = CALCULATOR.isRhombus(quadrilateral);
 
         //then
         Assert.assertFalse(result);
@@ -270,7 +270,7 @@ public class CalculatorTest {
                 new Point(10, -3), new Point(0, -3));
 
         //when
-        boolean result = calculator.isTrapezoid(quadrilateral);
+        boolean result = CALCULATOR.isTrapezoid(quadrilateral);
 
         //then
         Assert.assertTrue(result);
@@ -283,7 +283,7 @@ public class CalculatorTest {
                 new Point(10, -3), new Point(0, -3));
 
         //when
-        boolean result = calculator.isTrapezoid(quadrilateral);
+        boolean result = CALCULATOR.isTrapezoid(quadrilateral);
 
         //then
         Assert.assertFalse(result);

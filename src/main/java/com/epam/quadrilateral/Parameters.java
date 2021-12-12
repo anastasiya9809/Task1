@@ -1,4 +1,4 @@
-package com.epam.task1part1;
+package com.epam.quadrilateral;
 
 public class Parameters {
     private final double perimeter;
@@ -7,13 +7,5 @@ public class Parameters {
     public Parameters(double perimeter, double area) {
         this.perimeter = perimeter;
         this.area = area;
-    }
-
-    public double getPerimeter() {
-        return perimeter;
-    }
-
-    public double getArea() {
-        return area;
     }
 }
