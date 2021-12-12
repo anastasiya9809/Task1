@@ -1,4 +1,7 @@
-package com.epam.quadrilateral;
+package com.epam.quadrilateral.logic;
+
+import com.epam.quadrilateral.entity.Point;
+import com.epam.quadrilateral.entity.Quadrilateral;
 
 public class Calculator {
     private static final double SQUARE_ROOT_TWO = Math.sqrt(2);

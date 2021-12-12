@@ -1,5 +1,6 @@
 package com.epam.quadrilateral;
 
+import com.epam.quadrilateral.logic.QuadrilateralValidator;
 import org.junit.Assert;
 import org.junit.Test;
 

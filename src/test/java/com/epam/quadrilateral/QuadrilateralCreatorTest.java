@@ -1,5 +1,8 @@
 package com.epam.quadrilateral;
 
+import com.epam.quadrilateral.entity.Point;
+import com.epam.quadrilateral.entity.Quadrilateral;
+import com.epam.quadrilateral.logic.QuadrilateralCreator;
 import org.junit.Assert;
 import org.junit.Test;
 

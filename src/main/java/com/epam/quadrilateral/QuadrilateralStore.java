@@ -1,5 +1,7 @@
 package com.epam.quadrilateral;
 
+import com.epam.quadrilateral.logic.Calculator;
+
 import java.util.HashMap;
 import java.util.Map;
 

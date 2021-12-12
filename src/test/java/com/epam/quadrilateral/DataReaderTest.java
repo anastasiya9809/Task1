@@ -1,5 +1,7 @@
 package com.epam.quadrilateral;
 
+import com.epam.quadrilateral.exception.DataException;
+import com.epam.quadrilateral.logic.DataReader;
 import org.junit.Assert;
 import org.junit.Test;
 

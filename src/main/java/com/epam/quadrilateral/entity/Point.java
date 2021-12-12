@@ -1,4 +1,4 @@
-package com.epam.quadrilateral;
+package com.epam.quadrilateral.entity;
 
 public class Point {
     private final double x;

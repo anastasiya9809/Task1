@@ -1,5 +1,11 @@
 package com.epam.quadrilateral;
 
+import com.epam.quadrilateral.entity.Quadrilateral;
+import com.epam.quadrilateral.exception.DataException;
+import com.epam.quadrilateral.logic.DataReader;
+import com.epam.quadrilateral.logic.Director;
+import com.epam.quadrilateral.logic.QuadrilateralCreator;
+import com.epam.quadrilateral.logic.QuadrilateralValidator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;

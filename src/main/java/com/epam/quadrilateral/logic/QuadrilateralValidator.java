@@ -1,4 +1,6 @@
-package com.epam.quadrilateral;
+package com.epam.quadrilateral.logic;
+
+import com.epam.quadrilateral.entity.Point;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

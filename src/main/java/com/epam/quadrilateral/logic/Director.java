@@ -1,4 +1,7 @@
-package com.epam.quadrilateral;
+package com.epam.quadrilateral.logic;
+
+import com.epam.quadrilateral.exception.DataException;
+import com.epam.quadrilateral.entity.Quadrilateral;
 
 import java.util.ArrayList;
 import java.util.List;
